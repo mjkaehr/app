@@ -1,0 +1,19 @@
+<div *ngFor="let post of posts">
+    <h5>
+        <a [routerLink]="['/post.username']">
+            {{ post.username }}
+        </a>
+    </h5> 
+    <p>
+        {{ post.text }}
+    </p>
+</div>
+
+<div class="createPost">
+    <form>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="What's on your mind?">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Post</button>
+    </form>
+</div>
