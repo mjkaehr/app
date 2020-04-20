@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { posts } from '../posts';
+import { FeedService } from '../feed.service';
 
 @Component({
   selector: 'app-feed',
@@ -8,11 +8,14 @@ import { posts } from '../posts';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  posts = posts;
+  posts;
 
-  constructor() { }
+  constructor(
+    private feedService: FeedService,
+  ) { }
 
   ngOnInit(): void {
+    this.posts = this.feedService.getFeed();
   }
 
 }
