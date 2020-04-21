@@ -50,17 +50,17 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const found = posts.some(post => post.id === parseInt(req.params.id));
 
-    if (found){
+    if (found) {
         res.json(posts.filter(post => post.id === parseInt(req.params.id)));
     } else {
         res.status(400).json({ msg: 'Post not found' });
     }
 });
 
+
 // Create post
 router.post('/', (req, res) => {
     const newPost = {
-        id: uuid.v4(),
         username: req.body.username,
         text: req.body.text,
         likes: 0
@@ -68,6 +68,17 @@ router.post('/', (req, res) => {
 
     posts.push(newPost);
     res.json(posts);
+});
+
+// Delete post
+router.delete('/:id', (req, res) => {
+    const found = posts.some(post => post.id === parseInt(req.params.id));
+
+    if (found){
+        res.json({ msg: 'Post deleted', posts: posts.filter(post => post.id !== parseInt(req.params.id))});
+    } else {
+        res.status(400).json({ msg: 'Post not found' });
+    }
 });
 
 module.exports = router;
