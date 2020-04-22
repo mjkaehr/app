@@ -3,8 +3,13 @@ const path = require('path');
 const mongoose = require('mongoose');
 const logger = require('./middleware/logger');
 
-mongoose.connect('');
+mongoose.connect('mongodb+srv://morgankaehr:zekrom644@cluster0-sepke.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+
 let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("connected to mongoDB");
+});
 
 const app = express();
 
