@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+var cors = require('cors');
 const logger = require('./middleware/logger');
 
 mongoose.connect('mongodb+srv://morgankaehr:zekrom644@cluster0-sepke.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
@@ -11,7 +12,7 @@ db.once('open', function() {
   console.log("connected to mongoDB");
 });
 
-const app = express();
+const app = express(cors());
 
 //app.use(logger);
 
@@ -19,7 +20,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-// Post api routes
+/* Access Headers */
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Authorization, token, Origin, X-Requested-With, Content-Type, Accept, receiver");
+    res.header("Access-Control-Expose-Headers", "token");
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
+// api routes
 app.use('/api/posts', require('./routes/api/posts'));
 
 const PORT = process.env.PORT || 5000;

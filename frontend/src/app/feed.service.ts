@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class FeedService {
-  feedMessages = [];
+
+  posts;
 
   constructor(
     private http: HttpClient
   ) { }
 
   getFeed() {
-    // Get feed messages from data base
-    return this.http.get('/assets/posts.json');
+    // Get all posts from data base
+    console.log('fetching posts...');
+    return this.http.get('http://localhost:5000/api/posts');
   }
 
   addToFeed(posts) {

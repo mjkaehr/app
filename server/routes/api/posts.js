@@ -6,9 +6,9 @@ let Post = require('../../models/post');
 
 // Gets all post
 router.get('/', (req, res) => {
-    Post.find({}, (err, posts) => {
+    Post.find((err, posts) => {
         if (err)  {
-            console.log(err);
+            return console.error(err);
         } else {
             res.json(posts);
         }
@@ -28,25 +28,30 @@ router.get('/:id', (req, res) => {
 
 // Create post
 router.post('/', (req, res) => {
-    const newPost = {
+    const newPost = new Post ({
         username: req.body.username,
         text: req.body.text,
         likes: 0
-    }
+    })
 
-    posts.push(newPost);
-    res.json(posts);
+    newPost.save((err, newPost) => {
+        if (err) {
+            return console.error(err);
+        } else {
+            res.json({ msg: 'post created'});
+        }
+    });
 });
 
 // Delete post
 router.delete('/:id', (req, res) => {
-    const found = posts.some(post => post.id === parseInt(req.params.id));
-
-    if (found){
-        res.json({ msg: 'Post deleted', posts: posts.filter(post => post.id !== parseInt(req.params.id))});
-    } else {
-        res.status(400).json({ msg: 'Post not found' });
-    }
+    Post.findByIdAndDelete(req.params.id, (err, data) =>{
+        if (err) {
+            return console.error(err);
+        } else {
+            res.json(data);
+        }
+    });
 });
 
 module.exports = router;
