@@ -26,10 +26,15 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// Upvote a post
-router.put('/:id/like', (req, res) => {
+// Like a post
+router.put('/like', (req, res) => {
+    console.log(req.body);
+    if (!req.body.postId) {
+        res.status(400).send('Bad Request: no post id in request')
+        return;
+    }
     Post.findByIdAndUpdate(
-        req.params.id,
+        req.body.postId,
         {$inc: { likes: 1 } },
         (err, data) => {
             if (err) {
