@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class FeedService {
 
-  posts;
+  post;
 
   constructor(
     private http: HttpClient
@@ -18,9 +18,5 @@ export class FeedService {
     // Get all posts from data base
     console.log('fetching posts...');
     return this.http.get('http://localhost:5000/api/posts');
-  }
-
-  addToFeed(posts) {
-    
   }
 }
