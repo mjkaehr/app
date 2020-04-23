@@ -17,13 +17,27 @@ router.get('/', (req, res) => {
 
 // Get single post
 router.get('/:id', (req, res) => {
-    const found = posts.some(post => post.id === parseInt(req.params.id));
+    Post.findById(req.params.id, (err, data) => {
+        if (err) {
+            return console.error(err);
+        } else {
+            res.send(data);
+        }
+    });
+});
 
-    if (found) {
-        res.json(posts.filter(post => post.id === parseInt(req.params.id)));
-    } else {
-        res.status(400).json({ msg: 'Post not found' });
-    }
+// Upvote a post
+router.put('/:id/like', (req, res) => {
+    Post.findByIdAndUpdate(
+        req.params.id,
+        {$inc: { likes: 1 } },
+        (err, data) => {
+            if (err) {
+                return console.error(err);
+            } else {
+                res.send(data);
+            }
+        });
 });
 
 // Create post
@@ -45,7 +59,9 @@ router.post('/', (req, res) => {
 
 // Delete post
 router.delete('/:id', (req, res) => {
-    Post.findByIdAndDelete(req.params.id, (err, data) =>{
+    Post.findByIdAndDelete(
+        req.params.id,
+        (err, data) =>{
         if (err) {
             return console.error(err);
         } else {

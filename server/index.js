@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 var cors = require('cors');
 const logger = require('./middleware/logger');
 
