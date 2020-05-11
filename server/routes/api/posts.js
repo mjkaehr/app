@@ -1,5 +1,4 @@
 const express = require('express');
-const uuid = require('uuid');
 const router = express.Router();
 
 let Post = require('../../models/post');
@@ -30,7 +29,7 @@ router.get('/:id', (req, res) => {
 router.put('/like', (req, res) => {
     console.log(req.body);
     if (!req.body.postId) {
-        res.status(400).send('Bad Request: no post id in request')
+        res.status(400).send('Bad Request: no post id in request');
         return;
     }
     Post.findByIdAndUpdate(
@@ -40,6 +39,7 @@ router.put('/like', (req, res) => {
             if (err) {
                 return console.error(err);
             } else {
+                console.log('post liked');
                 res.send(data);
             }
         });
@@ -47,6 +47,11 @@ router.put('/like', (req, res) => {
 
 // Create post
 router.post('/', (req, res) => {
+    if (!req.body.username || !req.body.text) {
+        res.status(400).send('Bad Request: Not enough post data');
+        return;
+    }
+
     const newPost = new Post ({
         username: req.body.username,
         text: req.body.text,

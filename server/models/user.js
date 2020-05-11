@@ -4,11 +4,14 @@ let userSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        minlength: 1,
+        trim: true
     },
-    email: {
+    password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 8
     }
 });
 

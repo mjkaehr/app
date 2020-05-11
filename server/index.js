@@ -48,5 +48,6 @@ app.use((req, res, next) => {
 
 // api routes
 app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/users', require('./routes/api/users'));
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
