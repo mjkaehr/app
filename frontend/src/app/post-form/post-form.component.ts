@@ -22,7 +22,9 @@ export class PostFormComponent implements OnInit {
   model = new Post("Anonymous","");
 
   onSubmit() {
-
+    this.feedService.createPost(this.model.username, this.model.text).then(res => {
+      window.location.reload();
+    });
   }
 
 }

@@ -8,8 +8,6 @@ import { HttpClient } from '@angular/common/http';
 
 export class FeedService {
 
-  post;
-
   constructor(
     private http: HttpClient
   ) { }
@@ -23,5 +21,9 @@ export class FeedService {
   putLike(postId: string) {
     // Like a post
     return this.http.put('http://localhost:5000/api/posts/like', { postId }).toPromise();
+  }
+
+  createPost(username, text) {
+    return this.http.post('http://localhost:5000/api/posts/create', { username,text }).toPromise();
   }
 }

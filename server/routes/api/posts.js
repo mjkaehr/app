@@ -46,7 +46,8 @@ router.put('/like', (req, res) => {
 });
 
 // Create post
-router.post('/', (req, res) => {
+router.post('/create', (req, res) => {
+    console.log(req.body);
     if (!req.body.username || !req.body.text) {
         res.status(400).send('Bad Request: Not enough post data');
         return;
