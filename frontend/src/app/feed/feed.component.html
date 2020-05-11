@@ -1,12 +1,5 @@
-<div class="create-post">
-    <form>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="What's on your mind?">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Post</button>
-    </form>
-</div>
 
+<app-post-form></app-post-form>
 <div class="overflow-auto" *ngFor="let post of posts | async">
     <h5>
         {{ post.username }}

@@ -1,0 +1,14 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+        <div class="form-group">
+        <input type="text" class="form-control" id="text"
+            autocomplete="off"
+            required
+            [(ngModel)]="model.text" name="text">
+        </div>
+
+        <button type="submit" class="btn btn-primary"
+        [disabled]="!postForm.form.valid">Post</button>
+
+    </form>
+</div>
